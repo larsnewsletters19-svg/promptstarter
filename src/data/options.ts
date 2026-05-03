@@ -57,21 +57,12 @@ export type DocumentType =
   | "annat internt dokument";
 
 export type OutputFormat =
-  | "tabell"
-  | "punktlista"
   | "löpande text"
   | "enligt bifogad mall"
-  | "executive summary"
-  | "frågor till business"
-  | "testfall"
-  | "risklista"
-  | "actionlista"
-  | "acceptanskriterier"
-  | "sammanfattning"
-  | "feedbacktext"
-  | "offertstruktur"
-  | "rekommendation";
-
+  | "tabell"
+  | "punktlista"
+  | "numrerad lista"
+  | "executive summary";
 
 export const roleGroups: { label: string; options: Role[] }[] = [
   {
@@ -175,16 +166,8 @@ export const outputFormats: OutputFormat[] = [
   "enligt bifogad mall",
   "tabell",
   "punktlista",
+  "numrerad lista",
   "executive summary",
-  "frågor till business",
-  "testfall",
-  "risklista",
-  "actionlista",
-  "acceptanskriterier",
-  "sammanfattning",
-  "feedbacktext",
-  "offertstruktur",
-  "rekommendation",
 ];
 
 // Används för att avgöra om vald roll är en chefsroll
