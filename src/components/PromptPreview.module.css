@@ -1,0 +1,115 @@
+.container {
+  background: #fff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a2332;
+}
+
+.copyButton {
+  padding: 0.625rem 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+  background: #1a56db;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  min-height: 44px;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+
+.copyButton:hover {
+  background: #1648c0;
+}
+
+.copyButton:active {
+  background: #1240a8;
+}
+
+.textarea {
+  width: 100%;
+  padding: 0.875rem;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: #1a2332;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 6px;
+  resize: vertical;
+  line-height: 1.65;
+  box-sizing: border-box;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: #1a56db;
+  box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.1);
+}
+
+.successMessage {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #166534;
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  border-radius: 5px;
+  padding: 0.5rem 0.875rem;
+}
+
+.errorMessage {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #9a3412;
+  background: #fff7ed;
+  border: 1px solid #fdba74;
+  border-radius: 5px;
+  padding: 0.5rem 0.875rem;
+}
+
+.instructions {
+  background: #f1f5f9;
+  border-radius: 6px;
+  padding: 1rem 1.125rem;
+}
+
+.instructionsTitle {
+  margin: 0 0 0.625rem 0;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #1a2332;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.instructionsList {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.instructionsList li {
+  font-size: 0.9rem;
+  color: #374151;
+  line-height: 1.5;
+}
