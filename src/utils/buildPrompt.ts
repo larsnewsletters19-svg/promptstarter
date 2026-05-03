@@ -12,9 +12,7 @@ function isManagerRole(role: Role): boolean {
   return managerRoles.includes(role);
 }
 
-// Fokuspunkter per uppgift – ger prompten substans utöver bara uppgiftsnamnet
 const taskFocus: Record<Task, string> = {
-  // Analysera och granska
   "analysera dokumentet":
     "Identifiera syfte, scope och målgrupp. Lyft fram det som är oklart, motsägelsefullt eller saknas. Notera antaganden som dokumentet bygger på.",
   "hitta öppna frågor":
@@ -27,20 +25,16 @@ const taskFocus: Record<Task, string> = {
     "Bedöm sannolikhet och påverkan. Lyft tekniska, organisatoriska och tidsmässiga risker. Föreslå hanteringsåtgärder.",
   "jämföra dokument":
     "Identifiera likheter, skillnader och motsägelser. Lyft fram vad som saknas i det ena men finns i det andra. Notera vilket dokument som verkar mest aktuellt.",
-
-  // Skriva och producera
   "skriva ett dokument":
-    "Strukturera innehållet logiskt med tydlig inledning, kärna och avslutning. Anpassa språk och ton efter målgruppen. Var konkret och undvik onödig jargong.",
+    "Strukturera innehållet logiskt med tydlig inledning, kärna och avslutning. Anpassa språk och ton efter målgruppen. Var konkret och undvik onödig jargong.\nLeverera: Förslag på rubrik + dokumentets innehåll.",
   "skriva ett brev eller mejl":
-    "Håll det kort och tydligt. Inled med syfte, presentera kärnan och avsluta med en tydlig uppmaning eller nästa steg. Anpassa tonen efter mottagaren.",
+    "Inled med syftet. Presentera kärnan tydligt och konkret. Anpassa tonen efter mottagaren. Avsluta med en tydlig uppmaning, fråga eller nästa steg.\nLeverera: Förslag på ämnesrad + färdigt brev eller mejl.",
   "skriva en presentation":
-    "Strukturera med en tydlig röd tråd. Varje bild ska ha ett budskap. Inled med varför det är relevant och avsluta med nästa steg eller slutsats.",
+    "Strukturera med en tydlig röd tråd. Varje bild ska ha ett budskap. Inled med varför det är relevant och avsluta med nästa steg eller slutsats.\nLeverera: Förslag på rubrik + bildstruktur med en mening per bild.",
   "skriva en kravspecifikation":
-    "Varje krav ska vara mätbart, testbart och entydigt. Separera funktionella krav från icke-funktionella. Inkludera syfte, scope och avgränsningar.",
+    "Varje krav ska vara mätbart, testbart och entydigt. Separera funktionella krav från icke-funktionella. Inkludera syfte, scope och avgränsningar.\nLeverera: Förslag på rubrik + versionsnummer + innehållsförteckning + krav.",
   "skriva en sammanfattning till kund":
-    "Fokusera på leverans, status mot plan, avvikelser och nästa steg. Håll en professionell ton anpassad för kundens nivå. Undvik intern jargong.",
-
-  // Bearbeta och strukturera
+    "Fokusera på leverans, status mot plan, avvikelser och nästa steg. Håll en professionell ton anpassad för kundens nivå. Undvik intern jargong.\nLeverera: Förslag på rubrik + datum + sammanfattning.",
   "sammanfatta innehållet":
     "Lyft fram syfte, viktigaste beslut, åtaganden och nästa steg. Håll det kort och läsbart för en person som inte läst dokumentet.",
   "skapa en actionlista":
@@ -51,8 +45,6 @@ const taskFocus: Record<Task, string> = {
     "Ersätt facktermer med vardagliga ord där det är möjligt. Korta ner meningar. Behåll det viktiga innehållet men gör det tillgängligt för en bredare målgrupp.",
   "korrekturläsa och förbättra texten":
     "Rätta språkliga fel och förbättra meningsbyggnad och flöde. Lyft fram delar som är otydliga eller kan missförstås. Behåll författarens ton och intentioner.",
-
-  // Chefsuppgifter
   "skriva medarbetarfeedback":
     "Fokusera på konkreta beteenden och leveranser, inte personlighet. Balansera styrkor och utvecklingsområden. Ge specifika exempel. Håll en konstruktiv och framåtblickande ton.",
   "förbereda ett medarbetarsamtal":
@@ -60,12 +52,14 @@ const taskFocus: Record<Task, string> = {
   "analysera beläggning och resursplanering":
     "Identifiera konsulter med låg beläggning, kommande luckor och överbelagda resurser. Lyft risker och föreslå omfördelningar eller åtgärder.",
   "skriva ett offertunderlag":
-    "Strukturera kring kundens behov, föreslagen lösning, relevanta kompetenser och erfarenheter, kommersiella villkor och nästa steg. Håll det konkret och kundanpassat.",
+    "Strukturera kring kundens behov, föreslagen lösning, relevanta kompetenser och erfarenheter, kommersiella villkor och nästa steg. Håll det konkret och kundanpassat.\nLeverera: Förslag på rubrik + offertstruktur.",
   "bedöma en kandidat mot ett uppdrag":
     "Jämför kandidatens kompetens, erfarenhet och personlighet mot uppdragets krav och kundens kultur. Lyft styrkor, risker och eventuella gap. Ge en tydlig rekommendation.",
   "planera kompetensutveckling":
     "Identifiera gap mot nuvarande eller framtida uppdrag. Föreslå konkreta insatser som kurser, certifieringar eller mentorskap och koppla till konsultens egna mål.",
 };
+
+const TEXT_PLACEHOLDER = "\n[Klistra in ditt underlag här]";
 
 function buildSourceSection(sources: SourceType[]): string {
   const hasDokument = sources.includes("dokument");
@@ -90,12 +84,14 @@ export function buildPrompt({
   sources,
 }: PromptInputs): string {
   const isManager = isManagerRole(role);
+  const hasInklistradText = sources.includes("inklistrad text");
 
   const intro = isManager
     ? "Agera som en erfaren " + role + " på ett IT-konsultbolag."
     : role === "Generell"
     ? "Agera som en erfaren yrkesperson med relevant kompetens för uppgiften."
     : "Agera som en senior " + role + ".";
+
   const sourceSection = buildSourceSection(sources);
   const focus = taskFocus[task];
 
@@ -116,6 +112,7 @@ export function buildPrompt({
     "Svara i formatet: " + outputFormat + ".",
     "",
     closing,
+    ...(hasInklistradText ? [TEXT_PLACEHOLDER] : []),
   ];
 
   return lines.join("\n");
