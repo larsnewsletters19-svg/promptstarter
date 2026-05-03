@@ -23,6 +23,13 @@ export type Task =
   | "skapa en actionlista"
   | "identifiera risker"
   | "jämföra dokument"
+  | "skriva ett dokument"
+  | "skriva ett brev eller mejl"
+  | "skriva en presentation"
+  | "skriva en kravspecifikation"
+  | "strukturera om innehållet"
+  | "översätta till enklare språk"
+  | "korrekturläsa och förbättra texten"
   | "skriva medarbetarfeedback"
   | "förbereda ett medarbetarsamtal"
   | "analysera beläggning och resursplanering"
@@ -92,16 +99,34 @@ export const roleGroups: { label: string; options: Role[] }[] = [
 
 export const taskGroups: { label: string; options: Task[] }[] = [
   {
-    label: "Konsultuppgifter",
+    label: "Analysera och granska",
     options: [
       "analysera dokumentet",
       "hitta öppna frågor",
       "förbättra kraven",
       "skapa testfall",
-      "sammanfatta innehållet",
-      "skapa en actionlista",
       "identifiera risker",
       "jämföra dokument",
+    ],
+  },
+  {
+    label: "Skriva och producera",
+    options: [
+      "skriva ett dokument",
+      "skriva ett brev eller mejl",
+      "skriva en presentation",
+      "skriva en kravspecifikation",
+      "skriva en sammanfattning till kund",
+    ],
+  },
+  {
+    label: "Bearbeta och strukturera",
+    options: [
+      "sammanfatta innehållet",
+      "skapa en actionlista",
+      "strukturera om innehållet",
+      "översätta till enklare språk",
+      "korrekturläsa och förbättra texten",
     ],
   },
   {
@@ -112,12 +137,10 @@ export const taskGroups: { label: string; options: Task[] }[] = [
       "analysera beläggning och resursplanering",
       "skriva ett offertunderlag",
       "bedöma en kandidat mot ett uppdrag",
-      "skriva en sammanfattning till kund",
       "planera kompetensutveckling",
     ],
   },
 ];
-
 export const documentTypeGroups: { label: string; options: DocumentType[] }[] = [
   {
     label: "Kunduppdrag",
