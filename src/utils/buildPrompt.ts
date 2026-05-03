@@ -93,8 +93,9 @@ export function buildPrompt({
 
   const intro = isManager
     ? "Agera som en erfaren " + role + " på ett IT-konsultbolag."
+    : role === "Generell"
+    ? "Agera som en erfaren yrkesperson med relevant kompetens för uppgiften."
     : "Agera som en senior " + role + ".";
-
   const sourceSection = buildSourceSection(sources);
   const focus = taskFocus[task];
 

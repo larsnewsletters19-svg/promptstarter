@@ -2,6 +2,7 @@
 // Konsultroller och chefsroller samlas i samma Roll-lista.
 
 export type Role =
+  | "Generell"
   | "Business Analyst"
   | "Product Owner"
   | "Scrum Master"
@@ -68,6 +69,7 @@ export const roleGroups: { label: string; options: Role[] }[] = [
   {
     label: "Konsultroller",
     options: [
+      "Generell",
       "Business Analyst",
       "Product Owner",
       "Scrum Master",
