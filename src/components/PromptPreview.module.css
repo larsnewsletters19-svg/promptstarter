@@ -28,23 +28,24 @@
   font-size: 0.95rem;
   font-weight: 600;
   color: #fff;
-  background: #1a56db;
+  background: linear-gradient(135deg, #0f1d2e 0%, #1a3050 100%);
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   min-height: 44px;
-  transition: background 0.15s;
+  transition: opacity 0.15s, transform 0.1s;
   white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(15, 29, 46, 0.25);
 }
 
 .copyButton:hover {
-  background: #1648c0;
+  opacity: 0.9;
+  transform: translateY(-1px);
 }
 
 .copyButton:active {
-  background: #1240a8;
+  transform: translateY(0);
 }
-
 .textarea {
   width: 100%;
   padding: 0.875rem;

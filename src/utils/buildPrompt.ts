@@ -3,6 +3,7 @@ import { managerRoles } from "../data/options";
 
 interface PromptInputs {
   role: Role;
+  customRole: string;
   task: Task;
   outputFormat: OutputFormat;
   sources: SourceType[];
@@ -86,12 +87,13 @@ export function buildPrompt({
   const isManager = isManagerRole(role);
   const hasInklistradText = sources.includes("inklistrad text");
 
-  const intro = isManager
-    ? "Agera som en erfaren " + role + " på ett IT-konsultbolag."
-    : role === "Generell"
-    ? "Agera som en erfaren yrkesperson med relevant kompetens för uppgiften."
-    : "Agera som en senior " + role + ".";
+  const effectiveRole = typeof customRole === "string" && customRole.trim() ? customRole.trim() : String(role);
 
+  const intro = isManager
+    ? "Agera som en erfaren " + effectiveRole + " på ett IT-konsultbolag."
+    : effectiveRole === "Generell"
+    ? "Agera som en erfaren yrkesperson med relevant kompetens för uppgiften."
+    : "Agera som en senior " + effectiveRole + ".";
   const sourceSection = buildSourceSection(sources);
   const focus = taskFocus[task];
 
