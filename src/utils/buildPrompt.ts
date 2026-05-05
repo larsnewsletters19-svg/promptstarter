@@ -80,6 +80,7 @@ function buildSourceSection(sources: SourceType[]): string {
 
 export function buildPrompt({
   role,
+  customRole,
   task,
   outputFormat,
   sources,
