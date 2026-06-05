@@ -1,8 +1,29 @@
 import { useState } from "react";
 import styles from "./PromptAnalyzer.module.css";
 
-// Bygger analysrampan runt användarens prompt
-function buildAnalysisPrompt(userPrompt: string): string {
+type AnalysisMode = "full" | "improved";
+
+function buildAnalysisPrompt(userPrompt: string, mode: AnalysisMode): string {
+  if (mode === "improved") {
+    return `Du är en expert på att skriva AI-prompter med särskild erfarenhet av hur konsulter och chefer inom IT och bank använder AI-verktyg som Microsoft Copilot.
+
+Nedan följer en prompt som en användare har skrivit. Din uppgift är att leverera en förbättrad version direkt – utan förklaringar eller analys.
+
+Den förbättrade prompten ska:
+- Ha en tydlig roll som styr ton och kompetens
+- Ha en specifik och mätbar uppgift
+- Innehålla instruktioner om vilket underlag AI:n ska använda
+- Skydda mot hallucination genom att be AI:n markera antaganden och saknad information
+- Definiera exakt vilket format svaret ska ha
+- Vara praktiskt användbar för en konsult eller chef i ett verkligt uppdrag
+
+Returnera ENDAST den förbättrade prompten. Ingen förklaring, ingen analys, ingen inledning.
+
+Här är prompten som ska förbättras:
+
+${userPrompt}`;
+  }
+
   return `Du är en expert på att skriva och analysera AI-prompter, med särskild erfarenhet av hur konsulter och chefer inom IT och bank använder AI-verktyg som Microsoft Copilot i sitt dagliga arbete.
 
 Nedan följer en prompt som en användare har skrivit. Analysera den noggrant och returnera ett svar enligt exakt denna struktur:
@@ -44,14 +65,16 @@ Här är prompten som ska analyseras:
 
 ${userPrompt}`;
 }
+
 export function PromptAnalyzer() {
   const [inputPrompt, setInputPrompt] = useState("");
   const [analysisPrompt, setAnalysisPrompt] = useState("");
+  const [mode, setMode] = useState<AnalysisMode>("full");
   const [copyStatus, setCopyStatus] = useState<"idle" | "success" | "error">("idle");
 
   function handleAnalyze() {
     if (!inputPrompt.trim()) return;
-    const result = buildAnalysisPrompt(inputPrompt);
+    const result = buildAnalysisPrompt(inputPrompt, mode);
     setAnalysisPrompt(result);
   }
 
@@ -71,13 +94,43 @@ export function PromptAnalyzer() {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>Analysera din prompt</h2>
+      <h2 className={styles.title}>Förbättra din prompt</h2>
       <p className={styles.description}>
-        Klistra in en prompt du vill förbättra och klicka på "Skapa analysprompt". 
-        En ny prompt skapas som du kopierar med knappen som visas och klistrar in 
-        i ditt AI-verktyg, till exempel Copilot. AI:n analyserar din prompt och 
-        ger dig en förbättrad version med förklaringar.
+        Klistra in en prompt du vill förbättra och välj vad du vill ha tillbaka.
+        Välj "Analys + förbättrad prompt" för att förstå vad som kan bli bättre,
+        eller "Bara förbättrad prompt" om du vill ha en ny version direkt.
+        Kopiera den genererade analysprompten och klistra in den i ditt AI-verktyg,
+        till exempel Copilot. AI:n svarar med en ny och förbättrad prompt som du
+        sedan använder i ditt uppdrag.
       </p>
+
+      {/* Lägesväljare */}
+      <div className={styles.modeSelector}>
+        <label className={`${styles.modeOption} ${mode === "full" ? styles.modeActive : ""}`}>
+          <input
+            type="radio"
+            name="mode"
+            value="full"
+            checked={mode === "full"}
+            onChange={() => { setMode("full"); setAnalysisPrompt(""); }}
+            className={styles.modeRadio}
+          />
+          <span className={styles.modeLabel}>Analys + förbättrad prompt</span>
+          <span className={styles.modeHint}>Förstå vad som kan bli bättre</span>
+        </label>
+        <label className={`${styles.modeOption} ${mode === "improved" ? styles.modeActive : ""}`}>
+          <input
+            type="radio"
+            name="mode"
+            value="improved"
+            checked={mode === "improved"}
+            onChange={() => { setMode("improved"); setAnalysisPrompt(""); }}
+            className={styles.modeRadio}
+          />
+          <span className={styles.modeLabel}>Bara förbättrad prompt</span>
+          <span className={styles.modeHint}>Snabbt och rakt på sak</span>
+        </label>
+      </div>
 
       <div className={styles.inputSection}>
         <label htmlFor="userPrompt" className={styles.label}>
@@ -139,11 +192,12 @@ export function PromptAnalyzer() {
           <div className={styles.instructions}>
             <h4 className={styles.instructionsTitle}>Nästa steg:</h4>
             <ol className={styles.instructionsList}>
-              <li>Kopiera analysprompten.</li>
+              <li>Kopiera analysprompten med knappen ovan.</li>
               <li>Öppna ditt godkända AI-verktyg, till exempel Copilot.</li>
-              <li>Klistra in analysprompten där.</li>
-              <li>Läs igenom analysen och den förbättrade prompten.</li>
-              <li>Använd den förbättrade prompten i ditt nästa uppdrag.</li>
+              <li>Klistra in analysprompten och kör den.</li>
+              <li>AI:n svarar med en ny och förbättrad prompt – det är den du ska använda.</li>
+              <li>Kopiera den förbättrade prompten från AI:ns svar.</li>
+              <li>Starta en ny AI-session, klistra in den förbättrade prompten och bifoga ditt underlag.</li>
             </ol>
           </div>
         </div>
