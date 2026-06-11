@@ -6,6 +6,7 @@ import { SourceSelector } from "./components/SourceSelector";
 import { PromptPreview } from "./components/PromptPreview";
 import { PromptAnalyzer } from "./components/PromptAnalyzer";
 import { HowItWorks } from "./components/HowItWorks";
+import { VisualLearningPrompt } from "./components/VisualLearningPrompt";
 import {
   taskGroups,
   outputFormats,
@@ -15,7 +16,7 @@ import type { Role, Task, OutputFormat, SourceType } from "./data/options";
 import { buildPrompt } from "./utils/buildPrompt";
 import "./App.css";
 
-type Tab = "skapa" | "analysera";
+type Tab = "skapa" | "analysera" | "visual";
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<Tab>("skapa");
@@ -52,7 +53,6 @@ export default function App() {
       </header>
 
       <main className="container">
-        <HowItWorks />
         <SafetyNotice isManager={isManager} />
 
         {/* Flikar */}
@@ -69,11 +69,18 @@ export default function App() {
           >
             Förbättra din prompt
           </button>
+          <button
+            className={activeTab === "visual" ? "tab tabActive" : "tab"}
+            onClick={() => setActiveTab("visual")}
+          >
+            Visuellt lärande
+          </button>
         </div>
 
         {/* Skapa prompt */}
         {activeTab === "skapa" && (
           <>
+            <HowItWorks variant="skapa" />
             <section className="formCard">
               <div className="formGrid">
                 <RoleSelector
@@ -124,9 +131,22 @@ export default function App() {
 
         {/* Analysera prompt */}
         {activeTab === "analysera" && (
-          <section aria-label="Analysera prompt">
-            <PromptAnalyzer />
-          </section>
+          <>
+            <HowItWorks variant="analysera" />
+            <section aria-label="Analysera prompt">
+              <PromptAnalyzer />
+            </section>
+          </>
+        )}
+
+        {/* Visuellt lärande */}
+        {activeTab === "visual" && (
+          <>
+            <HowItWorks variant="visual" />
+            <section aria-label="Visuellt lärande">
+              <VisualLearningPrompt />
+            </section>
+          </>
         )}
       </main>
     </div>
