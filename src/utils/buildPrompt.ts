@@ -300,7 +300,7 @@ export function buildPrompt({
   const isManager = isManagerRole(role);
   const hasInklistradText = sources.includes("inklistrad text");
   const isWordOutput = outputFormat === "Word-dokument" || outputFormat === "Word-dokument enligt bifogad mall";
-  const hasWordMall = sources.includes("word-mall") || outputFormat === "Word-dokument enligt bifogad mall";
+  const hasWordMall = outputFormat === "Word-dokument enligt bifogad mall";
 
   const effectiveRole =
     typeof customRole === "string" && customRole.trim()
