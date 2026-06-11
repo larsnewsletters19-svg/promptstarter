@@ -271,19 +271,25 @@ function buildSourceSection(sources: SourceType[]): string {
   const hasText = sources.includes("inklistrad text");
 
   if (hasDokument && hasText) {
-    return `Underlag: Jag bifogar dokument och klistrar in text i denna session.
-Använd ENDAST detta underlag som grund för svaret.
-Gör inga antaganden som inte stöds av underlaget – markera tydligt om något saknas.`;
+    return `Underlag: Jag bifogar ett eller flera dokument och klistrar in text i denna session.
+Underlaget kan vara av vilket slag som helst – rapport, förstudie, Excel, mejl, anteckningar eller annat.
+Din uppgift är att aktivt bearbeta och transformera detta underlag för att lösa uppgiften nedan.
+Läs igenom allt material, extrahera det som är relevant och bygg ditt svar utifrån det.
+Om underlaget inte räcker för att lösa uppgiften fullt ut – markera tydligt vad som saknas med [SAKNAS: ...] och gör ditt bästa med det som finns.`;
   }
   if (hasDokument) {
-    return `Underlag: Jag bifogar dokument i denna session.
-Använd ENDAST dessa dokument som grund för svaret.
-Gör inga antaganden som inte stöds av dokumenten – markera tydligt om något saknas.`;
+    return `Underlag: Jag bifogar ett eller flera dokument i denna session.
+Underlaget kan vara av vilket slag som helst – rapport, förstudie, Excel, mejl, anteckningar eller annat.
+Din uppgift är att aktivt bearbeta och transformera detta underlag för att lösa uppgiften nedan.
+Läs igenom allt material, extrahera det som är relevant och bygg ditt svar utifrån det.
+Om underlaget inte räcker för att lösa uppgiften fullt ut – markera tydligt vad som saknas med [SAKNAS: ...] och gör ditt bästa med det som finns.`;
   }
   if (hasText) {
-    return `Underlag: Text följer efter denna prompt.
-Använd ENDAST denna text som grund för svaret.
-Gör inga antaganden som inte stöds av texten – markera tydligt om något saknas.`;
+    return `Underlag: Text klistras in efter denna prompt.
+Underlaget kan vara av vilket slag som helst – rapport, förstudie, tabelldata, mejl, anteckningar eller annat.
+Din uppgift är att aktivt bearbeta och transformera detta underlag för att lösa uppgiften nedan.
+Läs igenom allt material, extrahera det som är relevant och bygg ditt svar utifrån det.
+Om underlaget inte räcker för att lösa uppgiften fullt ut – markera tydligt vad som saknas med [SAKNAS: ...] och gör ditt bästa med det som finns.`;
   }
   return `Underlag: Inget dokument eller text har angetts.
 Basera inte svaret på antaganden.
