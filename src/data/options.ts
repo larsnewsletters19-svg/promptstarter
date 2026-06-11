@@ -186,10 +186,9 @@ export const managerRoles: Role[] = [
 ];
 
 // Underlagstyper – kan kombineras
-export type SourceType = "dokument" | "inklistrad text" | "word-mall";
+export type SourceType = "dokument" | "inklistrad text";
 
 export const sourceTypes: { value: SourceType; label: string }[] = [
   { value: "dokument", label: "Jag bifogar dokument" },
   { value: "inklistrad text", label: "Jag klistrar in text som underlag" },
-  { value: "word-mall", label: "Jag bifogar en Word-mall att följa" },
 ];
