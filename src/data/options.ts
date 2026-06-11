@@ -63,7 +63,9 @@ export type OutputFormat =
   | "tabell"
   | "punktlista"
   | "numrerad lista"
-  | "executive summary";
+  | "executive summary"
+  | "Word-dokument"
+  | "Word-dokument enligt bifogad mall";
 
 export const roleGroups: { label: string; options: Role[] }[] = [
   {
@@ -134,6 +136,7 @@ export const taskGroups: { label: string; options: Task[] }[] = [
     ],
   },
 ];
+
 export const documentTypeGroups: { label: string; options: DocumentType[] }[] = [
   {
     label: "Kunduppdrag",
@@ -170,6 +173,8 @@ export const outputFormats: OutputFormat[] = [
   "punktlista",
   "numrerad lista",
   "executive summary",
+  "Word-dokument",
+  "Word-dokument enligt bifogad mall",
 ];
 
 // Används för att avgöra om vald roll är en chefsroll
@@ -179,10 +184,12 @@ export const managerRoles: Role[] = [
   "Account Manager",
   "HR Business Partner",
 ];
+
 // Underlagstyper – kan kombineras
-export type SourceType = "dokument" | "inklistrad text";
+export type SourceType = "dokument" | "inklistrad text" | "word-mall";
 
 export const sourceTypes: { value: SourceType; label: string }[] = [
   { value: "dokument", label: "Jag bifogar dokument" },
   { value: "inklistrad text", label: "Jag klistrar in text som underlag" },
+  { value: "word-mall", label: "Jag bifogar en Word-mall att följa" },
 ];
