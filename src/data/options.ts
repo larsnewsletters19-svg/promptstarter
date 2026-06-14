@@ -192,3 +192,38 @@ export const sourceTypes: { value: SourceType; label: string }[] = [
   { value: "dokument", label: "Jag bifogar dokument" },
   { value: "inklistrad text", label: "Jag klistrar in text som underlag" },
 ];
+// Fasta val för "Skapa prompt från referensbild"
+
+
+// Bildformat för "Skapa prompt från referensbild"
+export type ImageFormat =
+  | "1:1 (kvadrat)"
+  | "16:9 (bredbild)"
+  | "4:3 (klassisk presentation)"
+  | "9:16 (stående/mobil)"
+  | "Annat";
+
+export const imageFormats: ImageFormat[] = [
+  "1:1 (kvadrat)",
+  "16:9 (bredbild)",
+  "4:3 (klassisk presentation)",
+  "9:16 (stående/mobil)",
+  "Annat",
+];
+
+// Förslag/genvägar för ämne
+export const imageTopicSuggestions: string[] = [
+  "AI i kravarbete för bank och finans",
+  "Hur konsulter kan använda AI i vardagen",
+  "En intern workshop om effektivare dokumentation",
+  "Status och nästa steg i ett projekt",
+];
+
+// Förslag/genvägar för målgrupp
+export const imageAudienceSuggestions: string[] = [
+  "Kollegor",
+  "Kund",
+  "Ledningsgrupp",
+  "IT-konsulter",
+  "Business analysts och product owners",
+];

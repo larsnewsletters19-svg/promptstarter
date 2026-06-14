@@ -5,6 +5,7 @@ import { SelectField } from "./components/SelectField";
 import { SourceSelector } from "./components/SourceSelector";
 import { PromptPreview } from "./components/PromptPreview";
 import { PromptAnalyzer } from "./components/PromptAnalyzer";
+import { ImagePromptGenerator } from "./components/ImagePromptGenerator";
 import { HowItWorks } from "./components/HowItWorks";
 import { VisualLearningPrompt } from "./components/VisualLearningPrompt";
 import {
@@ -16,7 +17,7 @@ import type { Role, Task, OutputFormat, SourceType } from "./data/options";
 import { buildPrompt } from "./utils/buildPrompt";
 import "./App.css";
 
-type Tab = "skapa" | "analysera" | "visual";
+type Tab = "skapa" | "analysera" | "visual" | "bild";
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<Tab>("skapa");
@@ -74,6 +75,12 @@ export default function App() {
             onClick={() => setActiveTab("visual")}
           >
             Visuellt lärande
+          </button>
+          <button
+            className={activeTab === "bild" ? "tab tabActive" : "tab"}
+            onClick={() => setActiveTab("bild")}
+          >
+            Från bild till nytt
           </button>
         </div>
 
@@ -147,6 +154,12 @@ export default function App() {
               <VisualLearningPrompt />
             </section>
           </>
+        )}
+        {/* Från bild till nytt */}
+        {activeTab === "bild" && (
+          <section aria-label="Skapa prompt från referensbild">
+            <ImagePromptGenerator />
+          </section>
         )}
       </main>
     </div>
